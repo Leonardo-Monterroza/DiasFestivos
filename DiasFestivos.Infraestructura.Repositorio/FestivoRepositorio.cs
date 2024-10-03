@@ -17,5 +17,15 @@ namespace DiasFestivos.Infraestructura.Repositorio
         {
             return await context.festivos.ToArrayAsync();
         }
+
+        public async Task<TBFestivos> Obtener(int Id)
+        {
+            return await context.festivos.FindAsync(Id);
+        }
+
+        public async Task<TBFestivos> ObtenerPorYear(int Year)
+        {
+            return await context.festivos.FindAsync(Year);
+        }
     }
 }

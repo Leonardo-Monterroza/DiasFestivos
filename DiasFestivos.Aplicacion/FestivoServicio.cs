@@ -13,6 +13,16 @@ namespace DiasFestivos.Aplicacion
             this.repositorio = repositorio;
         }
 
+        public async Task<TBFestivos> Obtener(int Id)
+        {
+            return await repositorio.Obtener(Id);
+        }
+
+        public async Task<TBFestivos> ObtenerPorYear(int Year)
+        {
+            return await repositorio.ObtenerPorYear(Year);
+        }
+
         public Task<IEnumerable<TBFestivos>> ObtenerTodos()
         {
             return repositorio.ObtenerTodos();

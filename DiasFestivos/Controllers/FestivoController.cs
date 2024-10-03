@@ -19,5 +19,17 @@ namespace DiasFestivos.Controllers
         {
             return Ok(await servicio.ObtenerTodos());
         }
+
+        [HttpGet("obtener/{Id}")]
+        public async Task<ActionResult<TBFestivos>> Obtener(int Id)
+        {
+            return Ok(await servicio.Obtener(Id));
+        }
+
+        [HttpGet("fecha/{Year}")]
+        public async Task<ActionResult<TBFestivos>> ObtenerPorYear(int Year)
+        {
+            return Ok(await servicio.ObtenerPorYear(Year));
+        }
     }
 }
