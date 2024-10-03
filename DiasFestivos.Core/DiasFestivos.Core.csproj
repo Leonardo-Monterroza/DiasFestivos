@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DiasFestivos.Dominio\DiasFestivos.Dominio.csproj" />
+    <ProjectReference Include="..\DTOs\DTOs.csproj" />
   </ItemGroup>
 
 </Project>

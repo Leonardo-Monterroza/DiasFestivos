@@ -1,6 +1,7 @@
 ﻿using DiasFestivos.Core.Interfaces.Repositorios;
 using DiasFestivos.Core.Interfaces.Servicios;
 using DiasFestivos.Dominio.Entidades;
+using DTOs;
 
 namespace DiasFestivos.Aplicacion
 {
@@ -18,8 +19,8 @@ namespace DiasFestivos.Aplicacion
             return await repositorio.Obtener(Id);
         }
 
-        public async Task<TBFestivos> ObtenerPorYear(int Year)
-        {
+        public async Task<IEnumerable<DTOsFestivos>> ObtenerPorYear(int Year)
+        {   
             return await repositorio.ObtenerPorYear(Year);
         }
 

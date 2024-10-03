@@ -1,5 +1,6 @@
 ﻿using DiasFestivos.Core.Interfaces.Servicios;
 using DiasFestivos.Dominio.Entidades;
+using DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DiasFestivos.Controllers
@@ -27,9 +28,10 @@ namespace DiasFestivos.Controllers
         }
 
         [HttpGet("fecha/{Year}")]
-        public async Task<ActionResult<TBFestivos>> ObtenerPorYear(int Year)
+        public async Task<ActionResult<IEnumerable<DTOsFestivos>>> ObtenerPorYear(int Year)
         {
-            return Ok(await servicio.ObtenerPorYear(Year));
+            var festivos = await servicio.ObtenerPorYear(Year);
+            return Ok(festivos);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DiasFestivos.Dominio.Entidades;
+using DTOs;
 
 namespace DiasFestivos.Core.Interfaces.Repositorios
 {
@@ -6,6 +7,6 @@ namespace DiasFestivos.Core.Interfaces.Repositorios
     {
         Task<IEnumerable<TBFestivos>> ObtenerTodos();
         Task<TBFestivos> Obtener(int Id);
-        Task<TBFestivos> ObtenerPorYear(int Year);
+        Task<IEnumerable<DTOsFestivos>> ObtenerPorYear(int Year);
     }
 }

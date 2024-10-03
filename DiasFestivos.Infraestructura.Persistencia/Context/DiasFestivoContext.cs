@@ -26,6 +26,21 @@ namespace DiasFestivos.Infraestructura.Persistencia.Context
                 tipo.HasKey(t => t.Id);
                 tipo.HasIndex(t => t.Tipo).IsUnique();
             });
+
+            modelBuilder.Entity<TBFestivos>(festivo =>
+            {
+                festivo.HasKey(f => f.Id);
+                festivo.HasIndex(f => f.Nombre).IsUnique();
+                festivo.Property(f => f.Dia).IsRequired();
+                festivo.Property(f => f.Mes).IsRequired();
+            });
+
+            modelBuilder.Entity<TBTipo>(tipo =>
+            {
+                tipo.HasKey(t => t.Id);
+                tipo.HasIndex(t => t.Tipo).IsUnique();
+                tipo.Property(t => t.Tipo).IsRequired();
+            });
         }
 
     }

@@ -18,6 +18,7 @@
     <ProjectReference Include="..\DiasFestivos.Core\DiasFestivos.Core.csproj" />
     <ProjectReference Include="..\DiasFestivos.Dominio\DiasFestivos.Dominio.csproj" />
     <ProjectReference Include="..\DiasFestivos.Infraestructura.Persistencia\DiasFestivos.Infraestructura.Persistencia.csproj" />
+    <ProjectReference Include="..\DTOs\DTOs.csproj" />
   </ItemGroup>
 
 </Project>
