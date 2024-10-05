@@ -27,40 +27,63 @@ namespace DiasFestivos.Infraestructura.Repositorio
 
         public async Task<IEnumerable<DTOsFestivos>> ObtenerPorYear(int Year)
         {
-            var festivoFijo = await context.festivos.Where(f => f.IdTipo == 1).ToListAsync();
-            var festivosTipo3 = await context.festivos.Where(f => f.IdTipo == 3).ToListAsync();
+            var festivos = await context.festivos.Where(f => f.IdTipo == 1 || f.IdTipo == 2 || f.IdTipo == 3 || f.IdTipo == 4)
+                           .OrderBy(f => f.Id)
+                           .ToListAsync();
 
-            DateTime domingoPascua = ObtenerDomingoDePascua(Year);
+            TBFestivos tBFestivos = new TBFestivos();
 
-            var dtosFestivos = festivoFijo.Select(f => new DTOsFestivos
+            DateTime domingoDePascua = ObtenerDomingoDePascua(Year);
+
+            var dtosFestivos = festivos.Select(f => new DTOsFestivos
             {
                 Nombre = f.Nombre,
-                Fecha = ($"{Year}/{f.Mes}/{f.Dia}"),
-
+                Fecha = f.IdTipo switch
+                {
+                    1 => $"{Year}/{f.Mes}/{f.Dia}", 
+                    2 => Convert.ToString(SiguienteLunes(new DateTime(Year, f.Mes, f.Dia)).ToString("yyyy/MM/dd")),
+                    3 => domingoDePascua.AddDays(f.DiasPascua).ToString("yyyy/MM/dd"),
+                    4 => SiguienteLunes(domingoDePascua.AddDays(f.DiasPascua)).ToString("yyyy/MM/dd"),
+                    _ => string.Empty
+                }
             }).ToList();
 
             return dtosFestivos;
         }
+        
 
         private DateTime ObtenerDomingoDePascua(int year)
         {
             int a = year % 19;
             int b = year % 4;
             int c = year % 7;
-            int d = ((19*a)+24) % 30;
+            int d = (19 * a + 24) % 30;
+            int e = (2 * b + 4 * c + 6 * d + 5) % 7;
 
-            int dia = d + ((2*b)+(4*c)+(6*d)+5)%7;
-            dia = 15 + dia;
+            int dia = d + e + 22; 
             int mes = 3;
 
             if (dia > 31)
             {
-                dia = dia - 31;
+                dia -= 31; 
                 mes = 4;
             }
-            return new DateTime(year, mes, dia);
 
+            return new DateTime(year, mes, dia);
+        }
+
+        public static DateTime SiguienteLunes(DateTime Fecha)
+        {
+            int diasParaAgregar = (int)DayOfWeek.Monday - (int)Fecha.DayOfWeek;
+
+            if (diasParaAgregar <= 0)
+            {
+                diasParaAgregar += 7;
+            }
+
+            return Fecha.AddDays(diasParaAgregar);
         }
     }
-
 }
+
+
