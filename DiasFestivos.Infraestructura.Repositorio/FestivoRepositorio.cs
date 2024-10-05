@@ -31,8 +31,6 @@ namespace DiasFestivos.Infraestructura.Repositorio
                            .OrderBy(f => f.Id)
                            .ToListAsync();
 
-            TBFestivos tBFestivos = new TBFestivos();
-
             DateTime domingoDePascua = ObtenerDomingoDePascua(Year);
 
             var dtosFestivos = festivos.Select(f => new DTOsFestivos
@@ -41,7 +39,7 @@ namespace DiasFestivos.Infraestructura.Repositorio
                 Fecha = f.IdTipo switch
                 {
                     1 => $"{Year}/{f.Mes}/{f.Dia}", 
-                    2 => Convert.ToString(SiguienteLunes(new DateTime(Year, f.Mes, f.Dia)).ToString("yyyy/MM/dd")),
+                    2 => SiguienteLunes(new DateTime(Year, f.Mes, f.Dia)).ToString("yyyy/MM/dd"),
                     3 => domingoDePascua.AddDays(f.DiasPascua).ToString("yyyy/MM/dd"),
                     4 => SiguienteLunes(domingoDePascua.AddDays(f.DiasPascua)).ToString("yyyy/MM/dd"),
                     _ => string.Empty
