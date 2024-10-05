@@ -72,12 +72,10 @@ namespace DiasFestivos.Infraestructura.Repositorio
 
         public static DateTime SiguienteLunes(DateTime Fecha)
         {
-            int diasParaAgregar = (int)DayOfWeek.Monday - (int)Fecha.DayOfWeek;
+            if (Fecha.DayOfWeek == DayOfWeek.Monday) { return Fecha; }
 
-            if (diasParaAgregar <= 0)
-            {
-                diasParaAgregar += 7;
-            }
+            int diasParaAgregar = (int)DayOfWeek.Monday - (int)Fecha.DayOfWeek;
+            if (diasParaAgregar <= 0) { diasParaAgregar += 7; }
 
             return Fecha.AddDays(diasParaAgregar);
         }
